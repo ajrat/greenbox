@@ -10,7 +10,7 @@ if (!empty($_GET["sendstate"])) {
 	$freshstate = file_get_contents('freshstate');
 	echo $freshstate;
 }else{
-	echo "no param";
+	echo "ТЕСТ";
 }
 
 /*
