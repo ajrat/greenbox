@@ -5,8 +5,7 @@ file_get_contents("https://api.telegram.org/bot372340784:AAEGVQ7MwgcVbWD5Q9zH6eQ
 
 
 
-
-
+//Если пришел запрос на статус
 if (!empty($_GET["sendstate"])) {
 	$freshstate = file_get_contents('freshstate');
 	echo $freshstate;
