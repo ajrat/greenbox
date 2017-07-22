@@ -12,7 +12,7 @@ $message = $output['message']['text'];
 switch(strtolower_ru($message)) {
 	case ('состояние'):
 	case ('/state'):
-		freshstate($chat_id, 'Привет, '. $first_name . '! ' . $emoji['preload'] );
+		freshstate($chat_id);
 	break;
 
 
