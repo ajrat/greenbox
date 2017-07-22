@@ -10,16 +10,28 @@ $first_name = $output['message']['chat']['first_name']; // Выделим имя
 $message = $output['message']['text'];
 
 switch(strtolower_ru($message)) {
-	case ('привет'):
-	case ('/hello'):
-	sendMessage($chat_id, 'Привет, '. $first_name . '! ' . $emoji['preload'] );
-  break;
+	case ('состояние'):
+	case ('/state'):
+		freshstate($chat_id, 'Привет, '. $first_name . '! ' . $emoji['preload'] );
+	break;
+
+
 case ('/start'):
 break;
 default:
 sendMessage($chat_id, 'Неизвестная команда!' );
 break;
 }
+
+
+function freshstate($chat_id){
+	$freshstatedata = file_get_contents('freshstate.txt');
+	$freshstatearray = explode(";", $freshstatedata);
+	$message = "Температура воздуха:".$freshstatearray[0]."\n Влажность воздуха:".$freshstatearray[1]."\n Влажность земли:".$freshstatearray[2];
+	file_get_contents($GLOBALS['api'] . '/sendMessage?chat_id=' . $chat_id . '&text=' . urlencode($message));
+}
+
+
 
 
 function sendMessage($chat_id, $message) {
