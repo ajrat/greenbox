@@ -10,7 +10,7 @@ if (!empty($_GET["sendstate"])) {
 	$freshstate = file_get_contents('freshstate.txt');
 	echo $freshstate;
 }else{
-	echo "ТЕСТ";
+	echo "1";
 }
 
 /*
