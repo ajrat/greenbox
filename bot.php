@@ -19,6 +19,7 @@ switch(strtolower_ru($message)) {
 	case ('/lampson'):
 		lamps($chat_id,1);
 	break;
+	
 	case ('Выключить лампы'):
 	case ('/lampsoff'):
 		lamps($chat_id,0);
@@ -39,6 +40,7 @@ function lamps($chat_id,$state){
 	if ($state == 0) {
 		file_put_contents ('lamps.txt', "off");
 	}
+	file_get_contents($GLOBALS['api'] . '/sendMessage?chat_id=' . $chat_id . '&text=' . urlencode("OK"));
 }
 
 
