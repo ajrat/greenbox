@@ -15,12 +15,12 @@ switch(strtolower_ru($message)) {
 		freshstate($chat_id);
 	break;
 
-	case ('Включить лампы'):
+	case ('Включитьлампы'):
 	case ('/lampson'):
 		lamps($chat_id,1);
 	break;
 
-	case ('Выключить лампы'):
+	case ('Выключитьлампы'):
 	case ('/lampsoff'):
 		lamps($chat_id,0);
 	break;
