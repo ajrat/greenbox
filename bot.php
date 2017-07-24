@@ -15,12 +15,30 @@ switch(strtolower_ru($message)) {
 		freshstate($chat_id);
 	break;
 
+	case ('Включить лампы'):
+	case ('/lampson'):
+		lamps($chat_id,1);
+	break;
+	case ('Выключить лампы'):
+	case ('/lampsoff'):
+		lamps($chat_id,0);
+	break;
 
 case ('/start'):
 break;
 default:
 sendMessage($chat_id, 'Неизвестная команда!' );
 break;
+}
+
+
+function lamps($chat_id,$state){
+	if ($state == 1) {
+		file_put_contents ('lamps.txt', "on");
+	}
+	if ($state == 0) {
+		file_put_contents ('lamps.txt', "off");
+	}
 }
 
 

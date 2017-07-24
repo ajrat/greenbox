@@ -10,8 +10,17 @@ if (!empty($_GET["sendstate"])) {
 	$freshstate = file_get_contents('freshstate.txt');
 	echo $freshstate;
 }else{
-	echo "#TEST HELLO,WORLD!$";
+	//echo "#TEST HELLO,WORLD!$";
 }
+
+if (!empty($_GET["getlamps"])) {
+  if ($_GET["getlamps"]=="LoKittyXTC") {
+    $lamps = file_get_contents('lamps.txt');
+    echo "#".$lamps."$";
+  }
+
+}
+
 
 /*
 
