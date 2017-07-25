@@ -68,9 +68,9 @@ function sendMessage($chat_id, $message) {
     $inline_button4 = array("text"=>"Полить","switch_inline_query"=>'/none');
     $inline_keyboard = [[$inline_button1,$inline_button2,$inline_button3,$inline_button4]];
     $keyboard=array("inline_keyboard"=>$inline_keyboard);
-    $replyMarkup = json_encode($keyboard); 
+    $replyMarkup = json_encode($keyboard); //. '&reply_markup=' . $replyMarkup
 
-file_get_contents($GLOBALS['api'] . '/sendMessage?chat_id=' . $chat_id . '&text=' . urlencode($message) . '&reply_markup=' . $replyMarkup);
+file_get_contents($GLOBALS['api'] . '/sendMessage?chat_id=' . $chat_id . '&text=' . urlencode($message) );
 
 }
 
