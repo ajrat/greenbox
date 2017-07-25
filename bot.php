@@ -62,15 +62,15 @@ function freshstate($chat_id){
 function sendMessage($chat_id, $message) {
 
     //$inline_button1 = array("text"=>"Состояние","url"=>"http://google.com");
-    $inline_button1 = array("text"=>"Состояние","switch_inline_query"=>'/state');
-    $inline_button2 = array("text"=>"Лампы вкл","switch_inline_query"=>'/lampson');
-    $inline_button3 = array("text"=>"Лампы выкл","switch_inline_query"=>'/lampsoff');
-    $inline_button4 = array("text"=>"Полить","switch_inline_query"=>'/none');
-    $inline_keyboard = [[$inline_button1,$inline_button2,$inline_button3,$inline_button4]];
-    $keyboard=array("inline_keyboard"=>$inline_keyboard);
+    $kb_button1 = array("text"=>"Состояние");
+    $kb_button2 = array("text"=>"лампы вкл");
+    $kb_button3 = array("text"=>"Лампы выкл");
+    $kb_button4 = array("text"=>"Полить");
+    $bot_keyboard = [[$kb_button1,$kb_button2,$kb_button3,$kb_button4]];
+    $keyboard=array("keyboard"=>$bot_keyboard);
     $replyMarkup = json_encode($keyboard); //. '&reply_markup=' . $replyMarkup
 
-file_get_contents($GLOBALS['api'] . '/sendMessage?chat_id=' . $chat_id . '&text=' . urlencode($message) );
+file_get_contents($GLOBALS['api'] . '/sendMessage?chat_id=' . $chat_id . '&text=' . urlencode($message). '&reply_markup=' . $replyMarkup );
 
 }
 
