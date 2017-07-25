@@ -30,7 +30,7 @@ switch(strtolower_ru($message)) {
 		lamps($chat_id,0);
 	break;
 
-	case ('Привет'):
+	case ('hello'):
 		sendsticker('c7def022-404a-46dd-b2d5-31e67857056e');
 	break;
 
