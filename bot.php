@@ -62,15 +62,16 @@ function freshstate($chat_id){
 function sendMessage($chat_id, $message) {
 
     //$inline_button1 = array("text"=>"Состояние","url"=>"http://google.com");
+    /*
     $kb_button1 = array("text"=>"Состояние");
     $kb_button2 = array("text"=>"лампы вкл");
     $kb_button3 = array("text"=>"Лампы выкл");
     $kb_button4 = array("text"=>"Полить");
     $bot_keyboard = [[$kb_button1,$kb_button2,$kb_button3,$kb_button4]];
     $keyboard=array("keyboard"=>$bot_keyboard);
-    $replyMarkup = json_encode($keyboard); //. '&reply_markup=' . $replyMarkup
+    $replyMarkup = json_encode($keyboard); //. '&reply_markup=' . $replyMarkup*/
 
-file_get_contents($GLOBALS['api'] . '/sendMessage?chat_id=' . $chat_id . '&text=' . urlencode($message). '&reply_markup=' . $replyMarkup );
+file_get_contents($GLOBALS['api'] . '/sendMessage?chat_id=' . $chat_id . '&text=' . urlencode($message));
 
 }
 
