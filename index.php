@@ -18,8 +18,8 @@ if (!empty($_GET["getlamps"])) {
     $lamps = file_get_contents('lamps.txt');
     echo "#".$lamps."$";
   }
-
 }
+
 
 
 /*

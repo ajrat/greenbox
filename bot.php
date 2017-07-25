@@ -47,7 +47,7 @@ function lamps($chat_id,$state){
 function freshstate($chat_id){
 	$freshstatedata = file_get_contents('freshstate.txt');
 	$freshstatearray = explode(";", $freshstatedata);
-	$message = "Температура воздуха : ".$freshstatearray[0]."C°\nВлажность воздуха : ".$freshstatearray[1]."%\nВлажность земли : ".$freshstatearray[2]."%\nЛампы : ".$freshstatearray[3];
+	$message = "Температура воздуха : ".$freshstatearray[0]."C°\nВлажность воздуха : ".$freshstatearray[1]."%\nВлажность земли : ".$freshstatearray[2]."%\nЛампы : ".$freshstatearray[3]."%\nП.Полив : ".$freshstatearray[4];
 	file_get_contents($GLOBALS['api'] . '/sendMessage?chat_id=' . $chat_id . '&text=' . urlencode($message));
 }
 
