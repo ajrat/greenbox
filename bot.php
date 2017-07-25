@@ -9,6 +9,11 @@ $chat_id = $output['message']['chat']['id']; // Выделим идентифи�
 $first_name = $output['message']['chat']['first_name']; // Выделим имя собеседника
 $message = $output['message']['text'];
 
+
+
+//$keyboard = [["Состояние"],["Лампы"],["Полив"]]; //Клавиатура
+
+
 switch(strtolower_ru($message)) {
 	case ('состояние'):
 	case ('/state'):
@@ -56,7 +61,13 @@ function freshstate($chat_id){
 
 function sendMessage($chat_id, $message) {
 
-file_get_contents($GLOBALS['api'] . '/sendMessage?chat_id=' . $chat_id . '&text=' . urlencode($message));
+    $inline_button1 = array("text"=>"Google url","url"=>"http://google.com");
+    $inline_button2 = array("text"=>"work plz","callback_data"=>'/plz');
+    $inline_keyboard = [[$inline_button1,$inline_button2]];
+    $keyboard=array("inline_keyboard"=>$inline_keyboard);
+    $replyMarkup = json_encode($keyboard); 
+
+file_get_contents($GLOBALS['api'] . '/sendMessage?chat_id=' . $chat_id . '&text=' . urlencode($message) . '&reply_markup=' . $replyMarkup);
 
 }
 
