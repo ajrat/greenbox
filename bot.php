@@ -30,13 +30,21 @@ switch(strtolower_ru($message)) {
 		lamps($chat_id,0);
 	break;
 
+
+
 case ('/start'):
+	sendsticker('blob:https://web.telegram.org/c7def022-404a-46dd-b2d5-31e67857056e');
 break;
 default:
 sendMessage($chat_id, 'Неизвестная команда!' );
 break;
 }
 
+
+
+function sendsticker($sticker){
+	file_get_contents($GLOBALS['api'] . '/sendSticker?chat_id=' . $chat_id . '&sticker='.$sticker);
+}
 
 function lamps($chat_id,$state){
 	if ($state == 1) {
@@ -45,7 +53,7 @@ function lamps($chat_id,$state){
 	if ($state == 0) {
 		file_put_contents ('lamps.txt', "off");
 	}
-	file_get_contents($GLOBALS['api'] . '/sendMessage?chat_id=' . $chat_id . '&text=Ok');
+	file_get_contents($GLOBALS['api'] . '/sendS?chat_id=' . $chat_id . '&text=Ok');
 }
 
 
