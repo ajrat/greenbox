@@ -46,8 +46,8 @@ break;
 
 
 
-function sendsticker($sticker){
-	file_get_contents($GLOBALS['api'] . '/sendSticker?chat_id=' . $chat_id . '&sticker='.$sticker);
+function sendsticker($photourl){
+	file_get_contents($GLOBALS['api'] . '/sendSticker?chat_id=' . $chat_id . '&photo=' . $photourl);
 }
 
 function lamps($chat_id,$state){
