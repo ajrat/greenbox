@@ -62,10 +62,11 @@ function freshstate($chat_id){
 function sendMessage($chat_id, $message) {
 
     //$inline_button1 = array("text"=>"Состояние","url"=>"http://google.com");
-    $inline_button1 = array("text"=>"Состояние","switch_inline_query_current_chat"=>'/state');
-    $inline_button2 = array("text"=>"Включить Лампы","switch_inline_query_current_chat"=>'/lampson');
-    $inline_button3 = array("text"=>"Выключить Лампы","switch_inline_query_current_chat"=>'/lampsoff');
-    $inline_keyboard = [[$inline_button1,$inline_button2,$inline_button3]];
+    $inline_button1 = array("text"=>"Состояние","switch_inline_query"=>'/state');
+    $inline_button2 = array("text"=>"Лампы вкл","switch_inline_query"=>'/lampson');
+    $inline_button3 = array("text"=>"Лампы выкл","switch_inline_query"=>'/lampsoff');
+    $inline_button4 = array("text"=>"Полить","switch_inline_query"=>'/none');
+    $inline_keyboard = [[$inline_button1,$inline_button2,$inline_button3,$inline_button4]];
     $keyboard=array("inline_keyboard"=>$inline_keyboard);
     $replyMarkup = json_encode($keyboard); 
 
