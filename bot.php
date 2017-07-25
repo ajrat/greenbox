@@ -31,7 +31,7 @@ switch(strtolower_ru($message)) {
 	break;
 
 	case ('hello'):
-		sendsticker('c7def022-404a-46dd-b2d5-31e67857056e');
+		sendsticker('https://s-media-cache-ak0.pinimg.com/736x/f2/fa/3f/f2fa3f35df165279b22c2d8f987e1fb3--rasta-man-homer-simpson.jpg');
 	break;
 
 
