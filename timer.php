@@ -11,10 +11,10 @@
 			$timeron = $timerarray[0];
 			$timeroff = $timerarray[1];
 
-			$DateTimeNow = strtotime(date('Y-m-d')  ." ". $timenow); 
-			
+			//$DateTimeNow = strtotime(date('Y-m-d')  ." ". $timenow); 
 
-			echo $DateTimeNow;
+
+			echo $timeron;
 		};
 	};
 ?>
