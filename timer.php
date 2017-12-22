@@ -8,13 +8,13 @@
 			$timerdata = file_get_contents('timer.txt');
 			$timerarray = explode(";", $timerdata);
 
-			$timeron = $timerarray[0];
-			$timeroff = $timerarray[1];
+			$timeron = strval($timerarray[0]);
+			$timeroff = strval($timerarray[1]);
 
-			//$DateTimeNow = strtotime(date('Y-m-d')  ." ". $timenow); 
+			$DateTimeNow = strtotime(date('Y-m-d')  ." ". $timenow); 
 
 
-			echo $timeron;
+			echo $DateTimeNow;
 		};
 	};
 ?>
