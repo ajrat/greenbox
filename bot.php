@@ -66,6 +66,9 @@ $bot->on(function($update) use ($bot, $callback_loc, $find_command){
 		//$bot->sendMessage($chatId, "Это ответ!");
 		//$bot->answerCallbackQuery($callback->getId()); // можно отослать пустое, чтобы просто убрать "часики" на кнопке
 	}
+	if($data == "lampstimer"){
+		$bot->answerCallbackQuery( $callback->getId(), "Недоступно",true);
+	}
 
 }, function($update){
 	$callback = $update->getCallbackQuery();
