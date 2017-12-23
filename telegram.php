@@ -1,79 +1,48 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: holland
- * Date: 31.07.2017
- * Time: 10:35
- */
-$output = json_decode(file_get_contents('php://input'), true);
-$id = $output['message']['chat']['id'];
-$token = '372340784:AAEGVQ7MwgcVbWD5Q9zH6eQn1VT5KNx-QFQ';
+$access_token = '372340784:AAEGVQ7MwgcVbWD5Q9zH6eQn1VT5KNx-QFQ';
+$api = 'https://api.telegram.org/bot' . $access_token;
+
+// Получим то, что передано скрипту ботом в POST-сообщении и распарсим
+$output = json_decode(file_get_contents('php://input'), TRUE); 
+
+$chat_id = $output['message']['chat']['id']; // Выделим идентификатор чата
+$first_name = $output['message']['chat']['first_name']; // Выделим имя собеседника
 $message = $output['message']['text'];
-file_put_contents('logs.txt', $message.' '.$id);
-if (isset($output['callback_query']['data'])){
-    checkInline($output, $token);
+
+
+
+//$keyboard = [["Состояние"],["Лампы"],["Полив"]]; //Клавиатура
+
+
+switch(strtolower_ru($message)) {
+	case ("Привет"):
+		sendMessage($chat_id, 'Здравствуй' );
+		break;
+	case ('/start'):
+		sendsticker($chat_id,"logo.jpg");
+		break;
+
+	default:
+		sendMessage($chat_id, 'Неизвестная команда!' );
+		break;
 }
-switch ($message){
-    case 'hi':
-        $message = 'Hello';
-        sendMessage($token, $id, ReplyKeyboardRemove());
-        break;
-    case 'how are you':
-        $message = 'I am fine';
-        sendMessage($token, $id, ReplyKeyboardRemove());
-        break;
-    case 'Inline_keyboard':
-        $message = 'DOME';
-        sendMessage($token, $id, ReplyKeyboardRemove());
-        break;
-    default:
-        $message = 'What are you say';
-        sendMessage($token, $id, $message);
+
+
+
+function sendsticker($chat_id, $photourl){
+	file_get_contents($GLOBALS['api'] . '/sendSticker?chat_id=' . $chat_id . '&photo=' . $photourl);
 }
-public function ReplyKeyboardRemove(){
-        $removeKeyboard = json_encode([
-            'remove_keyboard' => true,
-        ]);
-        $reply_markup = '&reply_markup='.$removeKeyboard;
-        return $reply_markup;
-    }
-function sendMessage($token, $id, $message){
-    file_get_contents("https://api.telegram.org/bot".$token."/sendMessage?chat_id=".$id."&text=".$message);
+
+function sendMessage($chat_id, $message) {
+	file_get_contents($GLOBALS['api'] . '/sendMessage?chat_id=' . $chat_id . '&text=' . urlencode($message));
 }
-file_put_contents('logs.txt', $id);
-// function KeyboardMenu(){
-//     $buttons = [['hi'], ['how are you']];
-//     $keyboard = json_encode($keyboard = [
-//         'keyboard' => $buttons,
-//         'resize_keyboard' => true,
-//         'one_time_keyboard' => false,
-//         'selective' => true,
-//     ]);
-//     $reply_markup = '&reply_markup='.$keyboard.'';
-//     return $reply_markup;
-// }
-// /**
-//  * @return string
-//  */
-// function inlineKeyboard(){
-//     $x1 = [
-//         'text' => 'inline_one',
-//         'callback_data' => 'inline_one',
-//     ];
-//     $x2 = [
-//         'text' => 'inline_five',
-//         'callback_data' => 'inline_five',
-//     ];
-//     $ops = [[$x1], [$x2]];
-//     $keyboard = [
-//       'inline_keyboard' => $ops,
-//     ];
-//     $keyboard = json_encode($keyboard, true);
-//     $reply_markup = '&reply_markup='.$keyboard;
-//     return $reply_markup;
-// }
-// function checkInline($output, $token){
-//         $id = $output['callback_query']['message']['chat']['id'];
-//         $message = $output['callback_query']['data'];
-//         sendMessage($token, $id, $message);
-// }
+
+//Функция перевода символов в нижний регистр, учитывающая кириллицу
+function strtolower_ru($text) {
+	 $alfavitlover = array('ё','й','ц','у','к','е','н','г', 'ш','щ','з','х','ъ','ф','ы','в', 'а','п','р','о','л','д','ж','э', 'я','ч','с','м','и','т','ь','б','ю');
+		 $alfavitupper = array('Ё','Й','Ц','У','К','Е','Н','Г', 'Ш','Щ','З','Х','Ъ','Ф','Ы','В', 'А','П','Р','О','Л','Д','Ж','Э', 'Я','Ч','С','М','И','Т','Ь','Б','Ю');
+return str_replace($alfavitupper,$alfavitlover,strtolower($text));
+}
+
+
+?>
