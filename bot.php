@@ -36,20 +36,17 @@
 	});
 
 
-	$bot->on(function($Update) use ($bot){
-		$message = $Update->getMessage();
-		$mtext = $message->getText();
-		$cid = $message->getChat()->getId();
-		
-		if(mb_stripos($mtext,"лампы вкл") !== false){
-			//file_put_contents ('lamps.txt', "on");
-			$bot->sendMessage($message->getChat()->getId(), "Включил");
-		}
-		
-
-	}, function($message) use ($name){
-		return true; // когда тут true - команда проходит
-	});	
+$bot->on(function($Update) use ($bot){
+	$message = $Update->getMessage();
+	$mtext = $message->getText();
+	$cid = $message->getChat()->getId();
+	
+	if(mb_stripos($mtext,"власть советам") !== false){
+		$bot->sendMessage($message->getChat()->getId(), "Смерть богатым!");
+	}
+}, function($message) use ($name){
+	return true; // когда тут true - команда проходит
+});
 
 	// запускаем обработку
 	$bot->run();
