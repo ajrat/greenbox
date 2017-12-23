@@ -17,8 +17,8 @@ $message = $output['message']['text'];
 switch(strtolower_ru($message)) {
 
 	case ('/start'):
-	case ('Привет'):
-		sendsticker('https://s-media-cache-ak0.pinimg.com/736x/f2/fa/3f/f2fa3f35df165279b22c2d8f987e1fb3--rasta-man-homer-simpson.jpg');
+	case ('привет'):
+		sendsticker($chat_id,'https://s-media-cache-ak0.pinimg.com/736x/f2/fa/3f/f2fa3f35df165279b22c2d8f987e1fb3--rasta-man-homer-simpson.jpg');
 	break;
 
 	default:
@@ -28,7 +28,7 @@ switch(strtolower_ru($message)) {
 
 
 
-function sendsticker($photourl){
+function sendsticker($chat_id, $photourl){
 	file_get_contents($GLOBALS['api'] . '/sendSticker?chat_id=' . $chat_id . '&photo=' . $photourl);
 }
 
