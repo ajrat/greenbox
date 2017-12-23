@@ -42,7 +42,7 @@
 		$cid = $message->getChat()->getId();
 		
 		if(mb_stripos($mtext,"лампы вкл") !== false){
-			file_put_contents ('lamps.txt', "on");
+			//file_put_contents ('lamps.txt', "on");
 			$bot->sendMessage($message->getChat()->getId(), "Включил");
 		}
 		
