@@ -25,7 +25,7 @@ switch(strtolower_ru($message)) {
 		break;
 	case ('расписание'):
 		$settime = true;
-		showKeyboard("Включать лампы в");
+		showKeyboard($chat_id, "Включать лампы в");
 		break;
 
 	default:
@@ -39,7 +39,27 @@ switch(strtolower_ru($message)) {
 
 function showKeyboard($text){
 
-	file_get_contents($GLOBALS['api'].'/InlineKeyboardButton?text='.$text);
+$keyboard = array(
+"keyboard" => array(array(array(
+"text" => "/button"
+
+),
+array(
+"text" => "contact",
+"request_contact" => true // This is OPTIONAL telegram button
+
+),
+array(
+"text" => "location",
+"request_location" => true // This is OPTIONAL telegram button
+
+)
+
+)), 
+"one_time_keyboard" => true, // Can be FALSE (hide keyboard after click)
+"resize_keyboard" => true // Can be FALSE (vertical resize)
+); 
+	file_get_contents($GLOBALS['api'].'/sendMessage?chat_id='.$chat_id.'&text='.urlencode($message).'&reply_markup='.json_encode($keyboard));
 }
 
 
