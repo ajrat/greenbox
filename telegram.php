@@ -23,7 +23,7 @@ switch(strtolower_ru($message)) {
 	case ('/start'):
 		sendPhoto($chat_id,'https://cdn.dribbble.com/users/5276/screenshots/2012179/tiki_illustration_kendrickkidd.jpg');
 		break;
-	case ('Расписание'):
+	case ('расписание'):
 		$settime = true;
 		showKeyboard("Включать лампы в");
 		break;
