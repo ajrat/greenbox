@@ -28,7 +28,7 @@
 					}	
 				}
 			}else{
-				$lampsacive = file_get_contents('timer.txt');
+				$lampsacive = file_get_contents('lamps.txt');
 				echo "#".$lampsacive."$";
 			}
 
