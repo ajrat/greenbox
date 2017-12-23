@@ -1,45 +1,155 @@
 <?php
-    require 'bot/Api.php'; //Подключаем библиотеку
-    require 'bot/Actions.php'; //Подключаем библиотеку
-    require 'bot/BotsManager.php'; //Подключаем библиотеку
-    require 'bot/TelegramClient.php'; //Подключаем библиотеку
-    require 'bot/TelegramRequest.php'; //Подключаем библиотеку
-    require 'bot/TelegramResponse.php'; //Подключаем библиотеку
-    use Telegram\Bot\Api; 
+/**
+ * A simple PHP class for telegram bot API.
+ * @author Egor Egorov <egor@erorrov.ru>
+ * @license https://raw.githubusercontent.com/erorrov/simple-telegram/master/LICENSE
+ */
 
-    $telegram = new Api('372340784:AAEGVQ7MwgcVbWD5Q9zH6eQn1VT5KNx-QFQ'); //Устанавливаем токен, полученный у BotFather
-    $result = $telegram -> getWebhookUpdates(); //Передаем в переменную $result полную информацию о сообщении пользователя
-    
-    $text = $result["message"]["text"]; //Текст сообщения
-    $chat_id = $result["message"]["chat"]["id"]; //Уникальный идентификатор пользователя
-    $name = $result["message"]["from"]["username"]; //Юзернейм пользователя
-    $keyboard = [["Последние статьи"],["Картинка"],["Гифка"]]; //Клавиатура
+//namespace tg;
 
-    if($text){
-         if ($text == "/start") {
-            $reply = "Добро пожаловать в бота!";
-            $reply_markup = $telegram->replyKeyboardMarkup([ 'keyboard' => $keyboard, 'resize_keyboard' => true, 'one_time_keyboard' => false ]);
-            $telegram->sendMessage([ 'chat_id' => $chat_id, 'text' => $reply, 'reply_markup' => $reply_markup ]);
-        }elseif ($text == "/help") {
-            $reply = "Информация с помощью.";
-            $telegram->sendMessage([ 'chat_id' => $chat_id, 'text' => $reply ]);
-        }elseif ($text == "Картинка") {
-            $url = "https://68.media.tumblr.com/6d830b4f2c455f9cb6cd4ebe5011d2b8/tumblr_oj49kevkUz1v4bb1no1_500.jpg";
-            $telegram->sendPhoto([ 'chat_id' => $chat_id, 'photo' => $url, 'caption' => "Описание." ]);
-        }elseif ($text == "Гифка") {
-            $url = "https://68.media.tumblr.com/bd08f2aa85a6eb8b7a9f4b07c0807d71/tumblr_ofrc94sG1e1sjmm5ao1_400.gif";
-            $telegram->sendDocument([ 'chat_id' => $chat_id, 'document' => $url, 'caption' => "Описание." ]);
-        }elseif ($text == "Последние статьи") {
-            $html=simplexml_load_file('http://netology.ru/blog/rss.xml');
-            foreach ($html->channel->item as $item) {
-	     $reply .= "\xE2\x9E\xA1 ".$item->title." (<a href='".$item->link."'>читать</a>)\n";
-        	}
-            $telegram->sendMessage([ 'chat_id' => $chat_id, 'parse_mode' => 'HTML', 'disable_web_page_preview' => true, 'text' => $reply ]);
-        }else{
-        	$reply = "По запросу \"<b>".$text."</b>\" ничего не найдено.";
-        	$telegram->sendMessage([ 'chat_id' => $chat_id, 'parse_mode'=> 'HTML', 'text' => $reply ]);
-        }
-    }else{
-    	$telegram->sendMessage([ 'chat_id' => $chat_id, 'text' => "Отправьте текстовое сообщение." ]);
+class Telegram{
+
+  /**
+  * Set bot token
+  * @var string
+  */
+  private $token;
+
+  /**
+  * Stores data of a message (WebHook)
+  * @var string
+  */
+  private $data = array();
+
+  /**
+  * Debug mode switch
+  * @var boolean
+  */
+  private $debug = false;
+
+  /**
+  * Constructor
+  * @param string $token
+  */
+  function __construct($token){
+    $this->token = $token;
+    $this->data = $this->getData();
+  }
+
+  /**
+  * Get an array of current message
+  * @return array
+  */
+  public function getData(){
+    return json_decode(file_get_contents("php://input"), true);
+  }
+
+  /**
+  * Just curl_file_create()
+  * @return resource
+  */
+  public function loadFile($path){
+    return curl_file_create($path);
+  }
+
+  /**
+  * Make an inline button. In fact, useless function but may be useful for beginners to grasp.
+  * @return array
+  */
+  public function buildInlineButton(array $params){
+    return $params;
+  }
+
+  /**
+  * Make a button. In fact, useless function but may be useful for beginners to grasp.
+  * @return array
+  */
+  public function buildReplyButton(array $params){
+    return $params;
+  }
+
+  /**
+  * Make an inline keyboard
+  * @return array
+  */
+  public function buildInlineKeyboard(array $buttons){
+    return json_encode(array("inline_keyboard" => $buttons), true);
+  }
+
+  /**
+  * Make a reply keyboard
+  * @return array
+  */
+  public function buildReplyKeyboard(array $buttons, array $params = array()){
+    return json_encode(array("keyboard" => $buttons, $params), true);
+  }
+
+  /**
+  * Make ForceReply
+  * @return array
+  */
+  public function buildForceReply(array $params = array()){
+    return json_encode(array("force_reply" => true, $params), true);
+  }
+
+  /**
+  * To remove a reply keyboard
+  * @return array
+  */
+  public function removeReplyKeyboard(array $params = array()){
+    return json_encode(array("remove_keyboard" => true, $params), true);
+  }
+
+  /**
+  * Make inline line. In fact, useless function but may be useful for beginners to grasp.
+  * @return array
+  */
+  public function buildInlineLine(array $params){
+    return $params;
+  }
+
+  /**
+  * To build inline query result
+  * @return array
+  */
+  public function buildInlineQueryResult(array $params){
+    return json_encode($params);
+  }
+
+  /**
+  * Debug mode
+  */
+  public function debug($chat_id = 0) {
+    $this->debug = ($chat_id == 0 ? false : $chat_id);
+  }
+
+  /**
+  * Make api request
+  * @return array
+  */
+  public function sendRequest($method, array $params = array(), $debug = false){
+    $ch = curl_init();
+    $url = "https://api.telegram.org/bot".$this->token."/".$method;
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_HEADER, false);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    $result = curl_exec($ch);
+
+    if(!$debug && $this->debug){
+      $debugparams = array(
+        "chat_id" => $this->debug,
+        "text" => "<b>[Debug info]</b>\n<b>Parameters:</b>\n<pre>".print_r($params, true)."</pre>\n<b>Result:</b>\n<pre>".print_r(json_decode($result), true)."</pre>",
+        "parse_mode" => "HTML"
+      );
+
+      $this->sendRequest("sendMessage", $debugparams, true);
     }
+
+    return json_decode($result, true);
+  }
+
+}
 ?>
