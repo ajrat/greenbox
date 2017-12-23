@@ -19,7 +19,7 @@ switch(strtolower_ru($message)) {
 		sendMessage($chat_id, 'Здравствуй' );
 		break;
 	case ('/start'):
-		sendsticker($chat_id,'logo.jpg');
+		sendPhoto($chat_id,'https://cdn.dribbble.com/users/5276/screenshots/2012179/tiki_illustration_kendrickkidd.jpg');
 		break;
 
 	default:
@@ -29,7 +29,7 @@ switch(strtolower_ru($message)) {
 
 
 
-function sendsticker($chat_id, $photourl){
+function sendPhoto($chat_id, $photourl){
 	file_get_contents($GLOBALS['api'] . '/sendPhoto?chat_id=' . $chat_id . '&photo=' . $photourl);
 }
 
