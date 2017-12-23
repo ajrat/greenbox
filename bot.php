@@ -30,8 +30,14 @@ switch(strtolower_ru($message)) {
 		lamps($chat_id,0);
 	break;
 
-	case ('hello'):
-		sendsticker('https://s-media-cache-ak0.pinimg.com/736x/f2/fa/3f/f2fa3f35df165279b22c2d8f987e1fb3--rasta-man-homer-simpson.jpg');
+	case ('Режим света'):
+	case ('/settimelamps'):
+		settimelamps($chat_id);
+	break;
+
+	case ('Привет'):
+	case ('/hello'):
+		sendMessage($chat_id,'https://s-media-cache-ak0.pinimg.com/736x/f2/fa/3f/f2fa3f35df165279b22c2d8f987e1fb3--rasta-man-homer-simpson.jpg');
 	break;
 
 
@@ -58,6 +64,10 @@ function lamps($chat_id,$state){
 		file_put_contents ('lamps.txt', "off");
 	}
 	file_get_contents($GLOBALS['api'] . '/sendMessage?chat_id=' . $chat_id . '&text=Ok');
+}
+
+function settimelamps($chat_id){
+	
 }
 
 
