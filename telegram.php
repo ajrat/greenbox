@@ -1,115 +1,45 @@
 <?php
+    require 'bot/Api.php'; //Подключаем библиотеку
+    require 'bot/Actions.php'; //Подключаем библиотеку
+    require 'bot/BotsManager.php'; //Подключаем библиотеку
+    require 'bot/TelegramClient.php'; //Подключаем библиотеку
+    require 'bot/TelegramRequest.php'; //Подключаем библиотеку
+    require 'bot/TelegramResponse.php'; //Подключаем библиотеку
+    use Telegram\Bot\Api; 
 
-	header('Content-Type: text/html; charset=utf-8');
-	// подрубаем API
-	require_once("vendor/autoload.php");
+    $telegram = new Api('372340784:AAEGVQ7MwgcVbWD5Q9zH6eQn1VT5KNx-QFQ'); //Устанавливаем токен, полученный у BotFather
+    $result = $telegram -> getWebhookUpdates(); //Передаем в переменную $result полную информацию о сообщении пользователя
+    
+    $text = $result["message"]["text"]; //Текст сообщения
+    $chat_id = $result["message"]["chat"]["id"]; //Уникальный идентификатор пользователя
+    $name = $result["message"]["from"]["username"]; //Юзернейм пользователя
+    $keyboard = [["Последние статьи"],["Картинка"],["Гифка"]]; //Клавиатура
 
-	// дебаг
-	if(true){
-		error_reporting(E_ALL & ~(E_NOTICE | E_USER_NOTICE | E_DEPRECATED));
-		ini_set('display_errors', 1);
-	}
-
-	// создаем переменную бота
-	$token = "372340784:AAEGVQ7MwgcVbWD5Q9zH6eQn1VT5KNx-QFQ";
-	$bot = new \TelegramBot\Api\Client($token,null);
-
-
-
-	// если бот еще не зарегистрирован - регистируем
-	if(!file_exists("registered.trigger")){ 
-		/**
-		 * файл registered.trigger будет создаваться после регистрации бота. 
-		 * если этого файла нет значит бот не зарегистрирован 
-		 */
-		 
-		// URl текущей страницы
-		$page_url = "https://".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
-		$result = $bot->setWebhook($page_url);
-		if($result){
-			file_put_contents("registered.trigger",time()); // создаем файл дабы прекратить повторные регистрации
-		} else die("ошибка регистрации");
-	}
-
-// Команды бота
-// пинг. Тестовая
-$bot->command('ping', function ($message) use ($bot) {
-	$bot->sendMessage($message->getChat()->getId(), 'pong!');
-});
-
-	// обязательное. Запуск бота
-	$bot->command('start', function ($message) use ($bot) {
-		$pic = "http://img.myconfinedspace.com/wp-content/uploads/2017/03/Rick-and-Morty-on-drugs-720x357.jpg";
-		$bot->sendPhoto($message->getChat()->getId(), $pic);
-	});
-
-	
-
-
-// Кнопки у сообщений
-$bot->command("ibutton", function ($message) use ($bot) {
-	$keyboard = new \TelegramBot\Api\Types\Inline\InlineKeyboardMarkup(
-		[
-			[
-				['callback_data' => 'data_test', 'text' => 'Answer'],
-				['callback_data' => 'data_test2', 'text' => 'ОтветЪ']
-			]
-		]
-	);
-
-	$bot->sendMessage($message->getChat()->getId(), "тест", false, null,null,$keyboard);
-});
-
-// Обработка кнопок у сообщений
-$bot->on(function($update) use ($bot, $callback_loc, $find_command){
-	$callback = $update->getCallbackQuery();
-	$message = $callback->getMessage();
-	$chatId = $message->getChat()->getId();
-	$data = $callback->getData();
-	
-	if($data == "data_test"){
-		$bot->answerCallbackQuery( $callback->getId(), "This is Ansver!",true);
-	}
-	if($data == "data_test2"){
-		$bot->sendMessage($chatId, "Это ответ!");
-		$bot->answerCallbackQuery($callback->getId()); // можно отослать пустое, чтобы просто убрать "часики" на кнопке
-	}
-
-}, function($update){
-	$callback = $update->getCallbackQuery();
-	if (is_null($callback) || !strlen($callback->getData()))
-		return false;
-	return true;
-});
-
-
-// Reply-Кнопки
-$bot->command("buttons", function ($message) use ($bot) {
-	$keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([[["text" => "Власть советам!"], ["text" => "Сиськи!"]]], true, true);
-
-	$bot->sendMessage($message->getChat()->getId(), "тест", false, null,null, $keyboard);
-});
-
-// Отлов любых сообщений + обрабтка reply-кнопок
-$bot->on(function($Update) use ($bot){
-	
-	$message = $Update->getMessage();
-	$mtext = $message->getText();
-	$cid = $message->getChat()->getId();
-	
-	if(mb_stripos($mtext,'1') !== false){
-		$pic = "http://aftamat4ik.ru/wp-content/uploads/2017/05/14277366494961.jpg";
-
-		$bot->sendPhoto($message->getChat()->getId(), $pic);
-	}
-	if(mb_stripos($mtext,"власть советам") !== false){
-		$bot->sendMessage($message->getChat()->getId(), "Смерть богатым!");
-	}
-}, function($message) use ($name){
-	return true; // когда тут true - команда проходит
-});
-
-// запускаем обработку
-$bot->run();
-
-echo "бот";
+    if($text){
+         if ($text == "/start") {
+            $reply = "Добро пожаловать в бота!";
+            $reply_markup = $telegram->replyKeyboardMarkup([ 'keyboard' => $keyboard, 'resize_keyboard' => true, 'one_time_keyboard' => false ]);
+            $telegram->sendMessage([ 'chat_id' => $chat_id, 'text' => $reply, 'reply_markup' => $reply_markup ]);
+        }elseif ($text == "/help") {
+            $reply = "Информация с помощью.";
+            $telegram->sendMessage([ 'chat_id' => $chat_id, 'text' => $reply ]);
+        }elseif ($text == "Картинка") {
+            $url = "https://68.media.tumblr.com/6d830b4f2c455f9cb6cd4ebe5011d2b8/tumblr_oj49kevkUz1v4bb1no1_500.jpg";
+            $telegram->sendPhoto([ 'chat_id' => $chat_id, 'photo' => $url, 'caption' => "Описание." ]);
+        }elseif ($text == "Гифка") {
+            $url = "https://68.media.tumblr.com/bd08f2aa85a6eb8b7a9f4b07c0807d71/tumblr_ofrc94sG1e1sjmm5ao1_400.gif";
+            $telegram->sendDocument([ 'chat_id' => $chat_id, 'document' => $url, 'caption' => "Описание." ]);
+        }elseif ($text == "Последние статьи") {
+            $html=simplexml_load_file('http://netology.ru/blog/rss.xml');
+            foreach ($html->channel->item as $item) {
+	     $reply .= "\xE2\x9E\xA1 ".$item->title." (<a href='".$item->link."'>читать</a>)\n";
+        	}
+            $telegram->sendMessage([ 'chat_id' => $chat_id, 'parse_mode' => 'HTML', 'disable_web_page_preview' => true, 'text' => $reply ]);
+        }else{
+        	$reply = "По запросу \"<b>".$text."</b>\" ничего не найдено.";
+        	$telegram->sendMessage([ 'chat_id' => $chat_id, 'parse_mode'=> 'HTML', 'text' => $reply ]);
+        }
+    }else{
+    	$telegram->sendMessage([ 'chat_id' => $chat_id, 'text' => "Отправьте текстовое сообщение." ]);
+    }
+?>
