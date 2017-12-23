@@ -17,18 +17,18 @@ if (substr_count($update["message"]["text"],'Включить лампы')) {
 	$timerarray = explode(";", $timerdata);
 	$timerstart = date("H:i",strtotime($timerarray[0]));
 	$timerfinish = date("H:i",strtotime($timerarray[1]));
-	file_put_contents ('lamps.txt', $timerstart.';'$timerfinish.';'.'0');
+	file_put_contents ('timer.txt', $timerstart.';'$timerfinish.';'.'0');
 
 	file_put_contents ('lamps.txt', "on");
 	$msg = "Включил";
 }
 
 if (substr_count($update["message"]["text"],'Выключить лампы')) {
-	$timerdata = file_get_contents('timer.txt');
-	$timerarray = explode(";", $timerdata);
-	$timerstart = date("H:i",strtotime($timerarray[0]));
-	$timerfinish = date("H:i",strtotime($timerarray[1]));
-	file_put_contents ('lamps.txt', $timerstart.';'$timerfinish.';'.'0');
+	//$timerdata = file_get_contents('timer.txt');
+	//$timerarray = explode(";", $timerdata);
+	//$timerstart = date("H:i",strtotime($timerarray[0]));
+	//$timerfinish = date("H:i",strtotime($timerarray[1]));
+	//file_put_contents ('timer.txt', $timerstart.';'$timerfinish.';'.'0');
 
 	file_put_contents ('lamps.txt', "off");
 	$msg = "Выключил";
