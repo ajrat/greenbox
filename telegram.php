@@ -13,11 +13,25 @@ $replyMarkup['keyboard'][] = array("Расписание");
 $replyMarkup['keyboard'][] = array("Датчики"); 
 
 if (substr_count($update["message"]["text"],'Включить лампы')) {
-$msg = "Сделал";
+	$timerdata = file_get_contents('timer.txt');
+	$timerarray = explode(";", $timerdata);
+	$timerstart = date("H:i",strtotime($timerarray[0]));
+	$timerfinish = date("H:i",strtotime($timerarray[1]));
+	file_put_contents ('lamps.txt', $timerstart.';'$timerfinish.';'.'0');
+
+	file_put_contents ('lamps.txt', "on");
+	$msg = "Включил";
 }
 
-if (substr_count($update["message"]["text"],'Ссылка раз')) {
-$msg = "Тут текст который видит юзер если нажмет кнопку 1";
+if (substr_count($update["message"]["text"],'Выключить лампы')) {
+	$timerdata = file_get_contents('timer.txt');
+	$timerarray = explode(";", $timerdata);
+	$timerstart = date("H:i",strtotime($timerarray[0]));
+	$timerfinish = date("H:i",strtotime($timerarray[1]));
+	file_put_contents ('lamps.txt', $timerstart.';'$timerfinish.';'.'0');
+
+	file_put_contents ('lamps.txt', "off");
+	$msg = "Выключил";
 }
 
 $sendto ="https://api.telegram.org/bot$botkey/sendmessage?parse_mode=HTML&chat_id=".$chatID."&text=".urlencode($msg)."&disable_web_page_preview=true&reply_markup=".json_encode($replyMarkup);
