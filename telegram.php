@@ -8,12 +8,12 @@ $chatID = $update["message"]["chat"]["id"];
 if (!$chatID) die("no");
 
 $msg = "Нажмите на ссылку";
-$replyMarkup['keyboard'][] = array("Ссылка раз","Ссылка два"); 
-$replyMarkup['keyboard'][] = array("Ссылка три"); 
-$replyMarkup['keyboard'][] = array("Все взорвать 😅"); 
+$replyMarkup['keyboard'][] = array("Включить лампы","Выключить лампы"); 
+$replyMarkup['keyboard'][] = array("Расписание"); 
+$replyMarkup['keyboard'][] = array("Датчики"); 
 
-if (substr_count($update["message"]["text"],'Ссылка раз')) {
-$msg = "Тут текст который видит юзер если нажмет кнопку 1";
+if (substr_count($update["message"]["text"],'Включить лампы')) {
+$msg = "Сделал";
 }
 
 if (substr_count($update["message"]["text"],'Ссылка раз')) {
