@@ -11,20 +11,25 @@
 
 			$timerstart = date("H:i",strtotime($timerarray[0]));
 			$timerfinish = date("H:i",strtotime($timerarray[1]));
+			$timeractiv = strval($timerarray[2]);
 
-
-			if ($timerstart>$timerfinish) {	
-				if (($timenow>$timerfinish)&&($timenow<$timerstart)) {
-					echo "#Off$";
+			if ($timeractiv == 1) {
+				if ($timerstart>$timerfinish) {	
+					if (($timenow>$timerfinish)&&($timenow<$timerstart)) {
+						echo "#Off$";
+					}else{
+						echo "#On$";
+					}
 				}else{
-					echo "#On$";
+					if (($timenow>$timerstart)&&($timenow<$timerfinish)) {
+						echo "#On$";
+					}else{
+						echo "#Off$";
+					}	
 				}
 			}else{
-				if (($timenow>$timerstart)&&($timenow<$timerfinish)) {
-					echo "#On$";
-				}else{
-					echo "#Off$";
-				}	
+				$lampsacive = file_get_contents('timer.txt');
+				echo "#".$lampsacive."$";
 			}
 
 		}
