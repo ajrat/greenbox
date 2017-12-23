@@ -15,6 +15,7 @@ if (!empty($_GET["sendstate"])) {
 
 if (!empty($_GET["getlamps"])) {
   if ($_GET["getlamps"]=="LoKittyXTC") {
+  	file_get_contents("https://greenboxtbot.herokuapp.com/timer.php?skey=LoKittyXTC");
     $lamps = file_get_contents('lamps.txt');
     echo "#".$lamps."$";
   }
