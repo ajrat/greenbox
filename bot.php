@@ -24,8 +24,8 @@
 
 	// обязательное. Запуск бота
 	$bot->command('start', function ($message) use ($bot) {
-	    $answer = 'Добро пожаловать!';
-	    $bot->sendMessage($message->getChat()->getId(), $answer);
+		$pic = "https://s-media-cache-ak0.pinimg.com/736x/f2/fa/3f/f2fa3f35df165279b22c2d8f987e1fb3--rasta-man-homer-simpson.jpg";
+		$bot->sendPhoto($message->getChat()->getId(), $pic);
 	});
 
 	// помощ
