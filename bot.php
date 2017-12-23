@@ -36,19 +36,6 @@
 	});
 
 
-$bot->command("лампы", function ($message) use ($bot) {
-	$keyboard = new \TelegramBot\Api\Types\Inline\InlineKeyboardMarkup(
-		[
-			[
-				['callback_data' => 'lampson', 'text' => 'Включить'],
-				['callback_data' => 'lampsoff', 'text' => 'Выключить']
-				['callback_data' => 'lampstimer', 'text' => 'Режим']
-			]
-		]
-	);
-
-	$bot->sendMessage($message->getChat()->getId(), "Что будем делать?", false, null,null,$keyboard);
-});
 
 
 	// запускаем обработку
