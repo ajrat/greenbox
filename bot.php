@@ -41,7 +41,7 @@ $bot->on(function($Update) use ($bot){
 	$mtext = $message->getText();
 	$cid = $message->getChat()->getId();
 	
-	if(mb_stripos($mtext,"власть советам") !== false){
+	if(mb_stripos($mtext,"lol") !== false){
 		$bot->sendMessage($message->getChat()->getId(), "Смерть богатым!");
 	}
 }, function($message) use ($name){
