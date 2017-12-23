@@ -40,13 +40,14 @@ $bot->command("лампы", function ($message) use ($bot) {
 	$keyboard = new \TelegramBot\Api\Types\Inline\InlineKeyboardMarkup(
 		[
 			[
-				['callback_data' => 'data_test', 'text' => 'Answer'],
-				['callback_data' => 'data_test2', 'text' => 'ОтветЪ']
+				['callback_data' => 'lampson', 'text' => 'Включить'],
+				['callback_data' => 'lampsoff', 'text' => 'Выключить']
+				['callback_data' => 'lampstimer', 'text' => 'Режим']
 			]
 		]
 	);
 
-	$bot->sendMessage($message->getChat()->getId(), "тест", false, null,null,$keyboard);
+	$bot->sendMessage($message->getChat()->getId(), "Что будем делать?", false, null,null,$keyboard);
 });
 
 $bot->on(function($update) use ($bot, $callback_loc, $find_command){
@@ -55,12 +56,15 @@ $bot->on(function($update) use ($bot, $callback_loc, $find_command){
 	$chatId = $message->getChat()->getId();
 	$data = $callback->getData();
 	
-	if($data == "data_test"){
-		$bot->answerCallbackQuery( $callback->getId(), "This is Ansver!",true);
+	if($data == "lampson"){
+		file_put_contents ('lamps.txt', "on");
+		$bot->answerCallbackQuery( $callback->getId(), "Включил",true);
 	}
-	if($data == "data_test2"){
-		$bot->sendMessage($chatId, "Это ответ!");
-		$bot->answerCallbackQuery($callback->getId()); // можно отослать пустое, чтобы просто убрать "часики" на кнопке
+	if($data == "lampsoff"){
+		file_put_contents ('lamps.txt', "off");
+		$bot->answerCallbackQuery( $callback->getId(), "Выключил",true);
+		//$bot->sendMessage($chatId, "Это ответ!");
+		//$bot->answerCallbackQuery($callback->getId()); // можно отослать пустое, чтобы просто убрать "часики" на кнопке
 	}
 
 }, function($update){
