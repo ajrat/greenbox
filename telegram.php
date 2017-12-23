@@ -38,7 +38,7 @@ switch(strtolower_ru($message)) {
 
 function showKeyboard($chat_id, $text){
 
-	file_get_contents($GLOBALS['api'].'/KeyboardButton?chat_id='.$chat_id.'&text='.$text);
+	file_get_contents($GLOBALS['api'].'/KeyboardButton?text='.$text);
 }
 
 
