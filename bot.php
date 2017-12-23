@@ -35,6 +35,25 @@
 	    $bot->sendMessage($message->getChat()->getId(), $answer);
 	});
 
+
+	$bot->on(function($Update) use ($bot){
+		$message = $Update->getMessage();
+		$mtext = $message->getText();
+		$cid = $message->getChat()->getId();
+		
+		if(mb_stripos($mtext,"лампы вкл") !== false){
+			file_put_contents ('lamps.txt', "on");
+			$bot->sendMessage($message->getChat()->getId(), "Включил");
+		}
+		if(mb_stripos($mtext,"лампы выкл") !== false){
+			file_put_contents ('lamps.txt', "off");
+			$bot->sendMessage($message->getChat()->getId(), "Выключил");
+		}
+
+	}, function($message) use ($name){
+		return true; // когда тут true - команда проходит
+	});	
+
 	// запускаем обработку
 	$bot->run();
 ?>
