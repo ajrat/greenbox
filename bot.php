@@ -36,16 +36,17 @@
 	});
 
 
-$bot->on(function($Update) use ($bot){
-	$message = $Update->getMessage();
-	$mtext = $message->getText();
-	$cid = $message->getChat()->getId();
-	
-	if(mb_stripos($mtext,"lol") !== false){
-		$bot->sendMessage($message->getChat()->getId(), "Смерть богатым!");
-	}
-}, function($message) use ($name){
-	return true; // когда тут true - команда проходит
+$bot->command("ibutton", function ($message) use ($bot) {
+	$keyboard = new \TelegramBot\Api\Types\Inline\InlineKeyboardMarkup(
+		[
+			[
+				['callback_data' => 'data_test', 'text' => 'Answer'],
+				['callback_data' => 'data_test2', 'text' => 'ОтветЪ']
+			]
+		]
+	);
+
+	$bot->sendMessage($message->getChat()->getId(), "тест", false, null,null,$keyboard);
 });
 
 	// запускаем обработку
