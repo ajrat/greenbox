@@ -19,7 +19,7 @@ switch(strtolower_ru($message)) {
 		sendMessage($chat_id, 'Здравствуй' );
 		break;
 	case ('/start'):
-		sendsticker($chat_id,"logo.jpg");
+		sendsticker($chat_id,'logo.jpg');
 		break;
 
 	default:
@@ -30,7 +30,7 @@ switch(strtolower_ru($message)) {
 
 
 function sendsticker($chat_id, $photourl){
-	file_get_contents($GLOBALS['api'] . '/sendSticker?chat_id=' . $chat_id . '&photo=' . $photourl);
+	file_get_contents($GLOBALS['api'] . '/sendPhoto?chat_id=' . $chat_id . '&photo=' . $photourl);
 }
 
 function sendMessage($chat_id, $message) {
