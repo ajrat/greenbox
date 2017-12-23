@@ -58,16 +58,16 @@ $bot->on(function($update) use ($bot, $callback_loc, $find_command){
 	
 	if($data == "lampson"){
 		//file_put_contents ('lamps.txt', "on");
-		$bot->answerCallbackQuery( $callback->getId(), "Включил",true);
+		//$bot->answerCallbackQuery( $callback->getId(), "Включил",true);
 	}
 	if($data == "lampsoff"){
 		//file_put_contents ('lamps.txt', "off");
-		$bot->answerCallbackQuery( $callback->getId(), "Выключил",true);
+		//$bot->answerCallbackQuery( $callback->getId(), "Выключил",true);
 		//$bot->sendMessage($chatId, "Это ответ!");
 		//$bot->answerCallbackQuery($callback->getId()); // можно отослать пустое, чтобы просто убрать "часики" на кнопке
 	}
 	if($data == "lampstimer"){
-		$bot->answerCallbackQuery( $callback->getId(), "Недоступно",true);
+		//$bot->answerCallbackQuery( $callback->getId(), "Недоступно",true);
 	}
 
 }, function($update){
