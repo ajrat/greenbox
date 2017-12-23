@@ -45,10 +45,7 @@
 			file_put_contents ('lamps.txt', "on");
 			$bot->sendMessage($message->getChat()->getId(), "Включил");
 		}
-		if(mb_stripos($mtext,"лампы выкл") !== false){
-			file_put_contents ('lamps.txt', "off");
-			$bot->sendMessage($message->getChat()->getId(), "Выключил");
-		}
+		
 
 	}, function($message) use ($name){
 		return true; // когда тут true - команда проходит
