@@ -5,7 +5,7 @@
  */
 
 //Include file (class)
-require("../telegram.php");
+require("telegram.php");
 
 //Instances class
 $tg = new Telegram("372340784:AAEGVQ7MwgcVbWD5Q9zH6eQn1VT5KNx-QFQ");
