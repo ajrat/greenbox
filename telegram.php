@@ -15,7 +15,7 @@ $message = $output['message']['text'];
 
 
 switch(strtolower_ru($message)) {
-	case ("Привет"):
+	case ("привет"):
 		sendMessage($chat_id, 'Здравствуй' );
 		break;
 	case ('/start'):
