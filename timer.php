@@ -16,20 +16,20 @@
 			if ($timeractiv == 1) {
 				if ($timerstart>$timerfinish) {	
 					if (($timenow>$timerfinish)&&($timenow<$timerstart)) {
-						echo "#Off$";
+						file_put_contents ('lamps.txt', "off");
 					}else{
-						echo "#On$";
+						file_put_contents ('lamps.txt', "on");
 					}
 				}else{
 					if (($timenow>$timerstart)&&($timenow<$timerfinish)) {
-						echo "#On$";
+						file_put_contents ('lamps.txt', "on");
 					}else{
-						echo "#Off$";
+						file_put_contents ('lamps.txt', "off");
 					}	
 				}
 			}else{
-				$lampsacive = file_get_contents('lamps.txt');
-				echo "#".$lampsacive."$";
+				//$lampsacive = file_get_contents('lamps.txt');
+				//echo "#".$lampsacive."$";
 			}
 
 		}
