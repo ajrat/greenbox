@@ -36,7 +36,7 @@
 	});
 
 
-$bot->command("ibutton", function ($message) use ($bot) {
+$bot->command("", function ($message) use ($bot) {
 	$keyboard = new \TelegramBot\Api\Types\Inline\InlineKeyboardMarkup(
 		[
 			[
@@ -48,6 +48,39 @@ $bot->command("ibutton", function ($message) use ($bot) {
 
 	$bot->sendMessage($message->getChat()->getId(), "тест", false, null,null,$keyboard);
 });
+
+// Reply-Кнопки
+$bot->command("buttons", function ($message) use ($bot) {
+	$keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([[["text" => "вкл лампы!"], ["text" => "Выкл лампы"]]], true, true);
+
+	$bot->sendMessage($message->getChat()->getId(), "тест", false, null,null, $keyboard);
+});
+
+
+
+// Отлов любых сообщений + обработка reply-кнопок
+$bot->on(function($Update) use ($bot){
+	
+	$message = $Update->getMessage();
+	$mtext = $message->getText();
+	$cid = $message->getChat()->getId();
+	
+	if(mb_stripos($mtext,"Сиськи") !== false){
+		$pic = "http://aftamat4ik.ru/wp-content/uploads/2017/05/14277366494961.jpg";
+
+		$bot->sendPhoto($message->getChat()->getId(), $pic);
+	}
+	if(mb_stripos($mtext,"власть советам") !== false){
+		$bot->sendMessage($message->getChat()->getId(), "Смерть богатым!");
+	}
+}, function($message) use ($name){
+	return true; // когда тут true - команда проходит
+});
+
+
+
+
+/*
 
 $bot->on(function($update) use ($bot, $callback_loc, $find_command){
 	$callback = $update->getCallbackQuery();
@@ -68,7 +101,7 @@ $bot->on(function($update) use ($bot, $callback_loc, $find_command){
 	if (is_null($callback) || !strlen($callback->getData()))
 		return false;
 	return true;
-});
+});*/
 
 	// запускаем обработку
 	$bot->run();
