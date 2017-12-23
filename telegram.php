@@ -11,7 +11,8 @@ $message = $output['message']['text'];
 
 
 
-//$keyboard = [["Состояние"],["Лампы"],["Полив"]]; //Клавиатура
+
+
 
 
 switch(strtolower_ru($message)) {
@@ -22,12 +23,32 @@ switch(strtolower_ru($message)) {
 	case ('/start'):
 		sendPhoto($chat_id,'https://cdn.dribbble.com/users/5276/screenshots/2012179/tiki_illustration_kendrickkidd.jpg');
 		break;
+	case ('к'):
+		showKeyboard($chat_id, "ТЫК");
+		break;
 
 	default:
 		sendMessage($chat_id, 'Неизвестная команда!' );
 		break;
+
 }
 
+
+
+
+function showKeyboard($chat_id, $text){
+	$keyboard  = [
+	    new InlineKeyboardButton(['text' => 'inline', 'switch_inline_query' => 'true']),
+	    new InlineKeyboardButton(['text' => 'callback', 'callback_data' => 'identifier']),
+	    new InlineKeyboardButton(['text' => 'open url', 'url' => 'https://github.com/akalongman/php-telegram-bot']),
+	];
+	$reply_markup = $telegram->replyKeyboardMarkup([
+	    'keyboard' => $keyboard, 
+	    'resize_keyboard' => true, 
+	    'one_time_keyboard' => true
+	]);
+	file_get_contents($GLOBALS['api'].'/sendMessage?chat_id='.$chat_id.'&text='.$text."&reply_markup=".$reply_markup);
+}
 
 
 function sendPhoto($chat_id, $photourl){
