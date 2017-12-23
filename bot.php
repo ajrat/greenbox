@@ -50,32 +50,6 @@ $bot->command("лампы", function ($message) use ($bot) {
 	$bot->sendMessage($message->getChat()->getId(), "Что будем делать?", false, null,null,$keyboard);
 });
 
-$bot->on(function($update) use ($bot, $callback_loc, $find_command){
-	$callback = $update->getCallbackQuery();
-	$message = $callback->getMessage();
-	$chatId = $message->getChat()->getId();
-	$data = $callback->getData();
-	
-	if($data == "lampson"){
-		//file_put_contents ('lamps.txt', "on");
-		//$bot->answerCallbackQuery( $callback->getId(), "Включил",true);
-	}
-	if($data == "lampsoff"){
-		//file_put_contents ('lamps.txt', "off");
-		//$bot->answerCallbackQuery( $callback->getId(), "Выключил",true);
-		//$bot->sendMessage($chatId, "Это ответ!");
-		//$bot->answerCallbackQuery($callback->getId()); // можно отослать пустое, чтобы просто убрать "часики" на кнопке
-	}
-	if($data == "lampstimer"){
-		//$bot->answerCallbackQuery( $callback->getId(), "Недоступно",true);
-	}
-
-}, function($update){
-	$callback = $update->getCallbackQuery();
-	if (is_null($callback) || !strlen($callback->getData()))
-		return false;
-	return true;
-});
 
 	// запускаем обработку
 	$bot->run();
