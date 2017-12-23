@@ -37,17 +37,8 @@ switch(strtolower_ru($message)) {
 
 
 function showKeyboard($chat_id, $text){
-	$keyboard  = [
-	    new InlineKeyboardButton(['text' => 'inline', 'switch_inline_query' => 'true']),
-	    new InlineKeyboardButton(['text' => 'callback', 'callback_data' => 'identifier']),
-	    new InlineKeyboardButton(['text' => 'open url', 'url' => 'https://github.com/akalongman/php-telegram-bot']),
-	];
-	$reply_markup = $telegram->replyKeyboardMarkup([
-	    'keyboard' => $keyboard, 
-	    'resize_keyboard' => true, 
-	    'one_time_keyboard' => true
-	]);
-	file_get_contents($GLOBALS['api'].'/sendMessage?chat_id='.$chat_id.'&text='.$text."&reply_markup=".$reply_markup);
+
+	file_get_contents($GLOBALS['api'].'/KeyboardButton?chat_id='.$chat_id.'&text='.$text);
 }
 
 
