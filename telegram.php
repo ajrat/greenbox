@@ -24,7 +24,7 @@ switch(strtolower_ru($message)) {
 		sendPhoto($chat_id,'https://cdn.dribbble.com/users/5276/screenshots/2012179/tiki_illustration_kendrickkidd.jpg');
 		break;
 	case ('к'):
-		showKeyboard($chat_id, "ТЫК");
+		showKeyboard("ТЫК");
 		break;
 
 	default:
@@ -36,7 +36,7 @@ switch(strtolower_ru($message)) {
 
 
 
-function showKeyboard($chat_id, $text){
+function showKeyboard($text){
 
 	file_get_contents($GLOBALS['api'].'/KeyboardButton?text='.$text);
 }
