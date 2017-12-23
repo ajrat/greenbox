@@ -9,7 +9,7 @@ $chat_id = $output['message']['chat']['id']; // Выделим идентифи�
 $first_name = $output['message']['chat']['first_name']; // Выделим имя собеседника
 $message = $output['message']['text'];
 
-
+$settime = false;
 
 
 
@@ -23,8 +23,9 @@ switch(strtolower_ru($message)) {
 	case ('/start'):
 		sendPhoto($chat_id,'https://cdn.dribbble.com/users/5276/screenshots/2012179/tiki_illustration_kendrickkidd.jpg');
 		break;
-	case ('к'):
-		showKeyboard("ТЫК");
+	case ('Расписание'):
+		$settime = true;
+		showKeyboard("Включать лампы в");
 		break;
 
 	default:
@@ -38,7 +39,7 @@ switch(strtolower_ru($message)) {
 
 function showKeyboard($text){
 
-	file_get_contents($GLOBALS['api'].'/KeyboardButton?text='.$text);
+	file_get_contents($GLOBALS['api'].'/InlineKeyboardButton?text='.$text);
 }
 
 
