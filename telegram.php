@@ -15,9 +15,10 @@ $message = $output['message']['text'];
 
 
 switch(strtolower_ru($message)) {
-	case ("привет"):
-		sendMessage($chat_id, 'Здравствуй' );
+	case ("тест"):
+		sendMessage($chat_id, 'Очко себе потестируй' );
 		break;
+	case ("привет"):
 	case ('/start'):
 		sendPhoto($chat_id,'https://cdn.dribbble.com/users/5276/screenshots/2012179/tiki_illustration_kendrickkidd.jpg');
 		break;
