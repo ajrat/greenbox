@@ -1,155 +1,68 @@
 <?php
-/**
- * A simple PHP class for telegram bot API.
- * @author Egor Egorov <egor@erorrov.ru>
- * @license https://raw.githubusercontent.com/erorrov/simple-telegram/master/LICENSE
- */
+$access_token = '372340784:AAEGVQ7MwgcVbWD5Q9zH6eQn1VT5KNx-QFQ';
+$api = 'https://api.telegram.org/bot' . $access_token;
 
-//namespace tg;
+// Получим то, что передано скрипту ботом в POST-сообщении и распарсим
+$output = json_decode(file_get_contents('php://input'), TRUE); 
 
-class Telegram{
+$chat_id = $output['message']['chat']['id']; // Выделим идентификатор чата
+$first_name = $output['message']['chat']['first_name']; // Выделим имя собеседника
+$message = $output['message']['text'];
 
-  /**
-  * Set bot token
-  * @var string
-  */
-  private $token;
 
-  /**
-  * Stores data of a message (WebHook)
-  * @var string
-  */
-  private $data = array();
 
-  /**
-  * Debug mode switch
-  * @var boolean
-  */
-  private $debug = false;
+//$keyboard = [["Состояние"],["Лампы"],["Полив"]]; //Клавиатура
 
-  /**
-  * Constructor
-  * @param string $token
-  */
-  function __construct($token){
-    $this->token = $token;
-    $this->data = $this->getData();
-  }
 
-  /**
-  * Get an array of current message
-  * @return array
-  */
-  public function getData(){
-    return json_decode(file_get_contents("php://input"), true);
-  }
+switch(strtolower_ru($message)) {
 
-  /**
-  * Just curl_file_create()
-  * @return resource
-  */
-  public function loadFile($path){
-    return curl_file_create($path);
-  }
+	case ('/start'):
+	case ('Привет'):
+		sendsticker('https://s-media-cache-ak0.pinimg.com/736x/f2/fa/3f/f2fa3f35df165279b22c2d8f987e1fb3--rasta-man-homer-simpson.jpg');
+	break;
 
-  /**
-  * Make an inline button. In fact, useless function but may be useful for beginners to grasp.
-  * @return array
-  */
-  public function buildInlineButton(array $params){
-    return $params;
-  }
+	default:
+		sendMessage($chat_id, 'Неизвестная команда!' );
+	break;
+}
 
-  /**
-  * Make a button. In fact, useless function but may be useful for beginners to grasp.
-  * @return array
-  */
-  public function buildReplyButton(array $params){
-    return $params;
-  }
 
-  /**
-  * Make an inline keyboard
-  * @return array
-  */
-  public function buildInlineKeyboard(array $buttons){
-    return json_encode(array("inline_keyboard" => $buttons), true);
-  }
 
-  /**
-  * Make a reply keyboard
-  * @return array
-  */
-  public function buildReplyKeyboard(array $buttons, array $params = array()){
-    return json_encode(array("keyboard" => $buttons, $params), true);
-  }
+function sendsticker($photourl){
+	file_get_contents($GLOBALS['api'] . '/sendSticker?chat_id=' . $chat_id . '&photo=' . $photourl);
+}
 
-  /**
-  * Make ForceReply
-  * @return array
-  */
-  public function buildForceReply(array $params = array()){
-    return json_encode(array("force_reply" => true, $params), true);
-  }
 
-  /**
-  * To remove a reply keyboard
-  * @return array
-  */
-  public function removeReplyKeyboard(array $params = array()){
-    return json_encode(array("remove_keyboard" => true, $params), true);
-  }
 
-  /**
-  * Make inline line. In fact, useless function but may be useful for beginners to grasp.
-  * @return array
-  */
-  public function buildInlineLine(array $params){
-    return $params;
-  }
+function sendMessage($chat_id, $message) {
 
-  /**
-  * To build inline query result
-  * @return array
-  */
-  public function buildInlineQueryResult(array $params){
-    return json_encode($params);
-  }
+		//$inline_button1 = array("text"=>"Состояние","url"=>"http://google.com");
+		/*
+		$kb_button1 = array("text"=>"Состояние");
+		$kb_button2 = array("text"=>"лампы вкл");
+		$kb_button3 = array("text"=>"Лампы выкл");
+		$kb_button4 = array("text"=>"Полить");
+		$bot_keyboard = [[$kb_button1,$kb_button2,$kb_button3,$kb_button4]];
+		$keyboard=array("keyboard"=>$bot_keyboard);
+		$replyMarkup = json_encode($keyboard); //. '&reply_markup=' . $replyMarkup*/
 
-  /**
-  * Debug mode
-  */
-  public function debug($chat_id = 0) {
-    $this->debug = ($chat_id == 0 ? false : $chat_id);
-  }
-
-  /**
-  * Make api request
-  * @return array
-  */
-  public function sendRequest($method, array $params = array(), $debug = false){
-    $ch = curl_init();
-    $url = "https://api.telegram.org/bot".$this->token."/".$method;
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_HEADER, false);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    $result = curl_exec($ch);
-
-    if(!$debug && $this->debug){
-      $debugparams = array(
-        "chat_id" => $this->debug,
-        "text" => "<b>[Debug info]</b>\n<b>Parameters:</b>\n<pre>".print_r($params, true)."</pre>\n<b>Result:</b>\n<pre>".print_r(json_decode($result), true)."</pre>",
-        "parse_mode" => "HTML"
-      );
-
-      $this->sendRequest("sendMessage", $debugparams, true);
-    }
-
-    return json_decode($result, true);
-  }
+file_get_contents($GLOBALS['api'] . '/sendMessage?chat_id=' . $chat_id . '&text=' . urlencode($message));
 
 }
+
+/**
+* Функция перевода символов в нижний регистр, учитывающая кириллицу
+*/
+
+function strtolower_ru($text) {
+
+	 $alfavitlover = array('ё','й','ц','у','к','е','н','г', 'ш','щ','з','х','ъ','ф','ы','в', 'а','п','р','о','л','д','ж','э', 'я','ч','с','м','и','т','ь','б','ю');
+
+		 $alfavitupper = array('Ё','Й','Ц','У','К','Е','Н','Г', 'Ш','Щ','З','Х','Ъ','Ф','Ы','В', 'А','П','Р','О','Л','Д','Ж','Э', 'Я','Ч','С','М','И','Т','Ь','Б','Ю');
+
+return str_replace($alfavitupper,$alfavitlover,strtolower($text));
+
+}
+
+
 ?>
