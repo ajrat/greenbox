@@ -1,7 +1,7 @@
 <?php
-function sendMessage($text) {
-file_get_contents("https://api.telegram.org/bot372340784:AAEGVQ7MwgcVbWD5Q9zH6eQn1VT5KNx-QFQ/sendMessage?chat_id=288119914&text=". urlencode($text));
-};
+//function sendMessage($text) {
+//file_get_contents("https://api.telegram.org/bot372340784:AAEGVQ7MwgcVbWD5Q9zH6eQn1VT5KNx-QFQ/sendMessage?chat_id=288119914&text=". urlencode($text));
+//};
 
 
 
@@ -13,6 +13,7 @@ if (!empty($_GET["sendstate"])) {
 	//echo "#TEST HELLO,WORLD!$";
 }
 
+//запрос на параметры лампы (вкл\выкл)
 if (!empty($_GET["getlamps"])) {
   if ($_GET["getlamps"]=="LoKittyXTC") {
   	file_get_contents("https://greenboxtbot.herokuapp.com/timer.php?skey=LoKittyXTC");
