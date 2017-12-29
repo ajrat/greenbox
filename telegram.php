@@ -16,9 +16,9 @@ $replyMarkup['keyboard'][] = array("Расписание");
 $replyMarkup['keyboard'][] = array("Датчики"); 
 
 $temptimevar = str_split($update["message"]["text"]);
-if (($temptimevar[2]=":")&&($temptimevar[5]=";")&&($temptimevar[8]=":")) {
-	$msg = "уляля";
-}
+//if (($temptimevar[2]=":")&&($temptimevar[5]=";")&&($temptimevar[8]=":")) {
+	$msg = $temptimevar[2];
+//}
 
 
 if (substr_count($update["message"]["text"],'Включить лампы')) {
