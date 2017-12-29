@@ -12,7 +12,13 @@ if (!$chatID) die("no");
 $msg = "Нажмите на ссылку";
 $replyMarkup['keyboard'][] = array("Включить лампы","Выключить лампы"); 
 $replyMarkup['keyboard'][] = array("Расписание"); 
+//$replyMarkup['keyboard'][] = array("1","2","3","4","5","6","7","8","9","10",);
 $replyMarkup['keyboard'][] = array("Датчики"); 
+
+$temptimevar = str_split($update["message"]["text"]);
+if (($temptimevar[2]=":")&&($temptimevar[5]=";")&&($temptimevar[8]=":")) {
+	$msg = "уляля";
+}
 
 
 if (substr_count($update["message"]["text"],'Включить лампы')) {
@@ -39,8 +45,13 @@ if (substr_count($update["message"]["text"],'Выключить лампы')) {
 
 if (substr_count($update["message"]["text"],'Расписание')) {
 	$timertrigger = true;
+	$msg = "Введи время (<XX:XX;YY:YY>)";
+	//file_put_contents ('rw.txt', '1');
+}
+if (substr_count($update["message"]["text"],'Расписание')) {
+	$timertrigger = true;
 	$msg = "Введи время (XX:XX;YY:YY)";
-	//file_put_contents ('timer.txt', $update["message"]["text"].'1');
+	//file_put_contents ('rw.txt', '1');
 }
 
 
