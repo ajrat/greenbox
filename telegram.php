@@ -17,7 +17,7 @@ $replyMarkup['keyboard'][] = array("Датчики");
 
 $temptimevar = str_split($update["message"]["text"]);
 //if (($temptimevar[2]=":")&&($temptimevar[5]=";")&&($temptimevar[8]=":")) {
-	$msg = $temptimevar[2];
+	$msg = "kkk";//$temptimevar[2];
 //}
 
 
