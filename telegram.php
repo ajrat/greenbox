@@ -17,8 +17,11 @@ $replyMarkup['keyboard'][] = array("Датчики");
 
 
 $temptimevar = preg_split('//u', $update["message"]["text"], NULL, PREG_SPLIT_NO_EMPTY);
-if (($temptimevar[2]=":")&&($temptimevar[5]=";")&&($temptimevar[8]=":")) {
-	$msg = "time set";
+if (($temptimevar[2]=":")&&($temptimevar[5]="-")&&($temptimevar[8]=":")) {
+
+	file_put_contents ('timer.txt', $temptimevar[0].$temptimevar[1].":".$temptimevar[3].$temptimevar[4].";".$temptimevar[5].$temptimevar[6].":".$temptimevar[8].$temptimevar[9].":"."1");
+
+	//9:00;04:00;1
 }
 
 
@@ -46,7 +49,7 @@ if (substr_count($update["message"]["text"],'Выключить лампы')) {
 
 if (substr_count($update["message"]["text"],'Расписание')) {
 	$timertrigger = true;
-	$msg = "Введи время (<XX:XX;YY:YY>)";
+	$msg = "Введи время (<XX:XX-YY:YY>)";
 	//file_put_contents ('rw.txt', '1');
 }
 if (substr_count($update["message"]["text"],'Расписание')) {
