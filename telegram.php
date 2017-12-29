@@ -15,11 +15,11 @@ $replyMarkup['keyboard'][] = array("Расписание");
 //$replyMarkup['keyboard'][] = array("1","2","3","4","5","6","7","8","9","10",);
 $replyMarkup['keyboard'][] = array("Датчики"); 
 
-//$temptimevar = $update["message"]["text"];
+
 $temptimevar = preg_split('//u', $update["message"]["text"], NULL, PREG_SPLIT_NO_EMPTY);
-//if (($temptimevar[2]=":")&&($temptimevar[5]=";")&&($temptimevar[8]=":")) {
-	$msg = $temptimevar[0];
-//}
+if (($temptimevar[2]=":")&&($temptimevar[5]=";")&&($temptimevar[8]=":")) {
+	$msg = "time set"
+}
 
 
 if (substr_count($update["message"]["text"],'Включить лампы')) {
