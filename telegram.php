@@ -58,9 +58,12 @@ if (substr_count($update["message"]["text"],'Датчики')) {
 	$temperature = date($freshstatearray[0]);
 	//$msg = "Температура: ".$temperature;
 
-	$lampsdata = file('lamps.txt');
+	$lampsdata = file_get_contents('lamps.txt');
+	//$lampsarray = explode(";", $lampsdata);
 	
-	$msg = $lampsdata[2];
+	$msg = "Температура: ".$lampsdata;
+
+	//$msg = "LOL";
 }
 
 
