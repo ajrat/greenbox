@@ -19,10 +19,10 @@ $replyMarkup['keyboard'][] = array("Датчики");
 $temptimevar = preg_split('//u', $update["message"]["text"], NULL, PREG_SPLIT_NO_EMPTY);
 
 
-//if ( ($temptimevar[2]=":")&&($temptimevar[5]=";")&&($temptimevar[8]=":") ) {
-	//file_put_contents ('timer.txt', $temptimevar[0].$temptimevar[1].":".$temptimevar[3].$temptimevar[4].";".$temptimevar[6].$temptimevar[7].":".$temptimevar[9].$temptimevar[10].";");
-//	$msg = "Таймер установлен";
-//}else
+if ( ($temptimevar[2] ==":")&&($temptimevar[5]==";")&&($temptimevar[8]==":") ) {
+	file_put_contents ('timer.txt', $temptimevar[0].$temptimevar[1].":".$temptimevar[3].$temptimevar[4].";".$temptimevar[6].$temptimevar[7].":".$temptimevar[9].$temptimevar[10].";");
+	$msg = "Таймер установлен";
+}else
 
 
 if (substr_count($update["message"]["text"],'Включить лампы')) {
