@@ -16,6 +16,7 @@ $replyMarkup['keyboard'][] = array("Расписание");
 $replyMarkup['keyboard'][] = array("Датчики"); 
 
 
+/*
 $temptimevar = preg_split('//u', $update["message"]["text"], NULL, PREG_SPLIT_NO_EMPTY);
 if (($temptimevar[2]=":")&&($temptimevar[5]="-")&&($temptimevar[8]=":")) {
 
@@ -23,6 +24,7 @@ if (($temptimevar[2]=":")&&($temptimevar[5]="-")&&($temptimevar[8]=":")) {
 	$msg = "Таймер установлен";
 	//9:00;04:00;1
 }
+*/
 
 if (substr_count($update["message"]["text"],'Включить лампы')) {
 	$timerdata = file_get_contents('timer.txt');
@@ -65,7 +67,6 @@ if (substr_count($update["message"]["text"],'Датчики')) {
 	//$msg = "Температура: ".$temperature;
 	$msg = "LOL";
 }
-
 
 
 $sendto ="https://api.telegram.org/bot$botkey/sendmessage?parse_mode=HTML&chat_id=".$chatID."&text=".urlencode($msg)."&disable_web_page_preview=true&reply_markup=".json_encode($replyMarkup);
