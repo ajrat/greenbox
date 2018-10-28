@@ -26,8 +26,8 @@ if (($temptimevar[2]=":")&&($temptimevar[5]="-")&&($temptimevar[8]=":")) {
 
 if (substr_count($update["message"]["text"],'Датчики')) {
 	$freshstatedata = file_get_contents('freshstate.txt');
-	$timerarray = explode(";", $freshstatedata);
-	$temperature = date($timerarray[0]);
+	$freshstatearray = explode(";", $freshstatedata);
+	$temperature = date($freshstatearray[0]);
 	$msg = "Температура: ".$temperature;
 }
 
