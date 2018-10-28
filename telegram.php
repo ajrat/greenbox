@@ -59,11 +59,13 @@ if (substr_count($update["message"]["text"],'Расписание')) {
 
 
 if (substr_count($update["message"]["text"],'Датчики')) {
-	$freshstatedata = file_get_contents('freshstate.txt');
-	$freshstatearray = explode(";", $freshstatedata);
-	$temperature = date($freshstatearray[0]);
-	$msg = "Температура: ".$temperature;
+	//$freshstatedata = file_get_contents('freshstate.txt');
+	//$freshstatearray = explode(";", $freshstatedata);
+	//$temperature = date($freshstatearray[0]);
+	//$msg = "Температура: ".$temperature;
+	$msg = "LOL";
 }
+
 
 
 $sendto ="https://api.telegram.org/bot$botkey/sendmessage?parse_mode=HTML&chat_id=".$chatID."&text=".urlencode($msg)."&disable_web_page_preview=true&reply_markup=".json_encode($replyMarkup);
