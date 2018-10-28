@@ -61,7 +61,7 @@ if (substr_count($update["message"]["text"],'Датчики')) {
 	$lampsdata = file_get_contents('lamps.txt');
 	//$lampsarray = explode(";", $lampsdata);
 	
-	$msg = "Температура: ".$lampsdata;
+	$msg = "Температура: ".$temperature."\n"."Лампа: ".$lampsdata;
 
 	//$msg = "LOL";
 }
