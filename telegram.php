@@ -22,7 +22,7 @@ $temptimevar = preg_split('//u', $update["message"]["text"], NULL, PREG_SPLIT_NO
 if ( ($temptimevar[2] ==":")&&($temptimevar[5]==";")&&($temptimevar[8]==":") ) {
 	file_put_contents ('timer.txt', $temptimevar[0].$temptimevar[1].":".$temptimevar[3].$temptimevar[4].";".$temptimevar[6].$temptimevar[7].":".$temptimevar[9].$temptimevar[10].";");
 	$msg = "Таймер установлен";
-}else
+}
 
 
 if (substr_count($update["message"]["text"],'Включить лампы')) {
@@ -34,7 +34,7 @@ if (substr_count($update["message"]["text"],'Включить лампы')) {
 
 	file_put_contents ('lamps.txt', "on");
 	$msg = "Включил";
-}else
+}
 
 if (substr_count($update["message"]["text"],'Выключить лампы')) {
 	$timerdata = file_get_contents('timer.txt');
@@ -45,11 +45,11 @@ if (substr_count($update["message"]["text"],'Выключить лампы')) {
 
 	file_put_contents ('lamps.txt', "off");
 	$msg = "Выключил";
-}else
+}
 
 if (substr_count($update["message"]["text"],'Расписание')) {
 	$msg = "Введи время (XX:XX;YY:YY)";
-}else
+}
 
 
 if (substr_count($update["message"]["text"],'Датчики')) {
