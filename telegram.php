@@ -53,11 +53,21 @@ if (substr_count($update["message"]["text"],'Расписание')) {
 
 
 if (substr_count($update["message"]["text"],'Датчики')) {
-	//$freshstatedata = file_get_contents('freshstate.txt');
-	//$freshstatearray = explode(";", $freshstatedata);
-	//$temperature = date($freshstatearray[0]);
+	$freshstatedata = file_get_contents('freshstate.txt');
+	$freshstatearray = explode(";", $freshstatedata);
+	$temperature = date($freshstatearray[0]);
 	//$msg = "Температура: ".$temperature;
-	$msg = "LOL";
+
+	$lampsdata = file_get_contents('lamps.txt');
+	$lampsarray = explode("$", $lampsdata);
+	if ($lampsarray[2]=='n'){
+		$lampstrigger = "on";
+	}else{
+		$lampstrigger = "off";
+	}
+	//$msg = "Температура: ".$temperature;
+
+	$msg = $lampstrigger;
 }
 
 
