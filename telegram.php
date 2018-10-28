@@ -15,10 +15,16 @@ $replyMarkup['keyboard'][] = array("Расписание");
 $replyMarkup['keyboard'][] = array("Датчики"); 
 
 
-if ($timertrigger == true) {
-	# code...
-	
-}
+
+	$temptimevar = preg_split('//u', $update["message"]["text"], NULL, PREG_SPLIT_NO_EMPTY);
+	if (($temptimevar[2]=":")&&($temptimevar[5]=";")&&($temptimevar[8]=":")) {
+
+		file_put_contents ('timer.txt', $temptimevar[0].$temptimevar[1].":".$temptimevar[3].$temptimevar[4].";".$temptimevar[6].$temptimevar[7].":".$temptimevar[9].$temptimevar[10].";"."1");
+		$timertrigger = false;
+		$msg = "Таймер установлен";
+		//9:00;04:00;1
+	}
+
 
 if (substr_count($update["message"]["text"],'Включить лампы')) {
 	$timerdata = file_get_contents('timer.txt');
@@ -43,18 +49,7 @@ if (substr_count($update["message"]["text"],'Выключить лампы')) {
 }
 
 if (substr_count($update["message"]["text"],'Расписание')) {
-	$timertrigger = true;
 	$msg = "Введи время (<XX:XX-YY:YY>)";
-
-$temptimevar = preg_split('//u', $update["message"]["text"], NULL, PREG_SPLIT_NO_EMPTY);
-	if (($temptimevar[2]=":")&&($temptimevar[5]="-")&&($temptimevar[8]=":")) {
-
-		file_put_contents ('timer.txt', $temptimevar[0].$temptimevar[1].":".$temptimevar[3].$temptimevar[4].";".$temptimevar[6].$temptimevar[7].":".$temptimevar[9].$temptimevar[10].";"."1");
-		$timertrigger = false;
-		$msg = "Таймер установлен";
-		//9:00;04:00;1
-	}
-
 	//file_put_contents ('rw.txt', '1');
 }
 
