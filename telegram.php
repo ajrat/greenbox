@@ -12,11 +12,10 @@ if (!$chatID) die("no");
 $msg = "Нажмите на ссылку";
 $replyMarkup['keyboard'][] = array("Включить лампы","Выключить лампы"); 
 $replyMarkup['keyboard'][] = array("Расписание"); 
-//$replyMarkup['keyboard'][] = array("1","2","3","4","5","6","7","8","9","10",);
 $replyMarkup['keyboard'][] = array("Датчики"); 
 
 
-if ($timertrigger == false) {
+if ($timertrigger == true) {
 	# code...
 	$temptimevar = preg_split('//u', $update["message"]["text"], NULL, PREG_SPLIT_NO_EMPTY);
 	if (($temptimevar[2]=":")&&($temptimevar[5]="-")&&($temptimevar[8]=":")) {
