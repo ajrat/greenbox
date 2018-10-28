@@ -24,13 +24,6 @@ if (($temptimevar[2]=":")&&($temptimevar[5]="-")&&($temptimevar[8]=":")) {
 	//9:00;04:00;1
 }
 
-if (substr_count($update["message"]["text"],'Датчики')) {
-	$freshstatedata = file_get_contents('freshstate.txt');
-	$freshstatearray = explode(";", $freshstatedata);
-	$temperature = date($freshstatearray[0]);
-	$msg = "Температура: ".$temperature;
-}
-
 if (substr_count($update["message"]["text"],'Включить лампы')) {
 	$timerdata = file_get_contents('timer.txt');
 	$timerarray = explode(";", $timerdata);
@@ -62,6 +55,14 @@ if (substr_count($update["message"]["text"],'Расписание')) {
 	$timertrigger = true;
 	$msg = "Введи время (XX:XX;YY:YY)";
 	//file_put_contents ('rw.txt', '1');
+}
+
+
+if (substr_count($update["message"]["text"],'Датчики')) {
+	$freshstatedata = file_get_contents('freshstate.txt');
+	$freshstatearray = explode(";", $freshstatedata);
+	$temperature = date($freshstatearray[0]);
+	$msg = "Температура: ".$temperature;
 }
 
 
