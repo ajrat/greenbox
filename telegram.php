@@ -58,16 +58,9 @@ if (substr_count($update["message"]["text"],'Датчики')) {
 	$temperature = date($freshstatearray[0]);
 	//$msg = "Температура: ".$temperature;
 
-	$lampsdata = file_get_contents('lamps.txt');
-	$lampsarray = explode("$", $lampsdata);
-	if ($lampsarray[2]=='n'){
-		$lampstrigger = "on";
-	}else{
-		$lampstrigger = "off";
-	}
-	//$msg = "Температура: ".$temperature;
-
-	$msg = $lampstrigger;
+	$lampsdata = file('lamps.txt');
+	
+	$msg = $lampsdata[2];
 }
 
 
